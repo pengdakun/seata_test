@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.publink.demo.dao.StorageDao">
+<mapper namespace="cn.peng.demo.dao.StorageDao">
 
-    <resultMap id="BaseResultMap" type="cn.publink.demo.entity.Storage">
+    <resultMap id="BaseResultMap" type="cn.peng.demo.entity.Storage">
         <id column="id" property="id" jdbcType="VARCHAR"></id>
         <result column="commodity_code" property="commodityCode" jdbcType="VARCHAR"></result>
         <result column="count" property="count" jdbcType="INTEGER"></result>
