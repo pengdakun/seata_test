@@ -1,0 +1,58 @@
+server:
+  port: 2003
+
+seata:
+  enabled: true #使用yml配置seata，默认为true
+  application-id: ${spring.application.name}
+  #需要和nacos中配置保持一致
+  tx-service-group: seata_test_tx_group
+  enable-auto-data-source-proxy: false
+  service:
+    vgroup-mapping:
+      seata_test_tx_group: default # seata_test_tx_group改成config.text中自己的事务分组名称
+    grouplist:
+      default: 127.0.0.1:8091
+      enable-degrade: false
+      disable-global-transaction: false
+  config:
+    type: nacos
+    nacos:
+      #需要和server在同一个注册中心下
+      serverAddr: localhost:8848
+      #需要server端(registry和config)、nacos配置client端(registry和config)保持一致
+      group: SEATA_GROUP
+  registry:
+    type: nacos
+    nacos:
+      #需要和server端保持一致，即server在nacos中的名称，默认为seata-server
+      application: seata-server
+      serverAddr: localhost:8848
+      #需要server端(registry和config)、nacos配置client端(registry和config)保持一致
+      group: SEATA_GROUP
+
+
+spring:
+  application:
+    name: seata-account
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    # 当前数据源操作类型
+    type: com.alibaba.druid.pool.DruidDataSource
+    # mysql驱动类
+    driver-class-name: org.gjt.mm.mysql.Driver
+    url: jdbc:mysql://localhost:3306/seata_account?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+feign:
+  hystrix:
+    enabled: false
+logging:
+  level:
+    io:
+      seata: info
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
